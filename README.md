@@ -17,4 +17,4 @@ V0lcano:
 -- Tripled assembly machine energy usage to balance pollution compared to vanilla TODO: add a setting that makes this a slider
 
 
--- How much Fish per Minute can you get your base to? How will yo
+-- How much Fish per Minute can you get your base to? How will you conquer the unique recycling challenges to your items?

@@ -92,8 +92,10 @@ data:extend({{
     "not-deconstructable",
     "hidden"
   },
-  tint = {r = 0.8, g = 0.8, b = 1.0},
-  icon = "__base__/graphics/icons/market.png",
+  tint = {r = 0.4, g = 0.4, b = 1.0},
+  --TODO: create better liquidator asset using paint.NET or other editing software
+  icon = "__fishmode_custom__/liquidator-icon.png",
+  scale = 0.4,
   icon_mipmaps = 4,
   icon_size = 64,
   max_health = 1500,
@@ -102,13 +104,14 @@ data:extend({{
   close_sound = data.raw.accumulator.accumulator.close_sound,
   order = "d-a-a",
   animation = {
-    filename = "__base__/graphics/entity/market/market.png",
-    height = 127,
+    filename = "__fishmode_custom__/liquidator.png",
+    height = 396, --127
     shift = {
-      0.95,
-      0.2
+      0.2,
+      0.4
     },
-    width = 156
+    width = 410,
+    scale = 0.325
   },
   selection_box = {
     {
@@ -142,7 +145,10 @@ data:extend({{
     fuel_category = "fish-fuel",
     fuel_inventory_size = 1,
     type = "burner",
-    emissions_per_minute = 200,
+    --don't do this, the biters do not like it
+    --emissions_per_minute = 200,
+
+    --TODO: add  an identical copy of the liquidator which does create pollution whenever fish are added in 
   },
   energy_usage = "1MW",
   collision_box = {{-1.2, -1.2}, {1.2, 1.2}},
@@ -187,7 +193,7 @@ data:extend({{
 data:extend({{
   type = "item",
   name = "liquidator",
-  icon = "__base__/graphics/icons/market.png",
+  icon = "__fishmode_custom__/liquidator-icon.png",
   icon_size = 64,
   icon_mipmaps = 4,
   subgroup = "other",

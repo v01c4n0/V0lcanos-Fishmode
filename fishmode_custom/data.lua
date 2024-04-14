@@ -102,8 +102,8 @@ local recipe = {
 
 data:extend{uraniumOre, recipe}
 
---log(settings.startup["Asssembly-Machine-Power-Consumption"].value)
-assemblyMachinePowerConsumptionMultiplier = ((settings.startup["Asssembly-Machine-Power-Consumption"].value)*75)
+log(settings.startup["asssembly-machine-power-consumption"].value)
+assemblyMachinePowerConsumptionMultiplier = ((settings.startup["asssembly-machine-power-consumption"].value)*75)
 
 data.raw["assembling-machine"]["assembling-machine-1"].energy_usage = (1*assemblyMachinePowerConsumptionMultiplier .. "kW")
 data.raw["assembling-machine"]["assembling-machine-2"].energy_usage = (2*assemblyMachinePowerConsumptionMultiplier .. "kW")

@@ -1,0 +1,31 @@
+
+Fishmode roadmap & ideas:
+
+2. Universal recycling for all recipes with only 1 input
+	-	costs fish to recycle
+	-   should be more expensive than the more interesting multi-ingredient recipe recycling
+	-	do it in machines appropriate to the crafter ie. plates get decrafted in furnaces, batteries in chemical plants, engines in assembling machines
+
+3. Compatibility with space exploration, Krastorio 2, and other mods
+	-	one aspect is automated resource value assignment: find some way to give resource values algorithmically
+	-	bugfixes
+
+4. Do the licensing you goofbag
+	-	ensure proper attribution of original mod creator & message them
+	-	either message the krastorio mod creator & credit them or just replace the small section of code used to make furnace recipes work as assembly machines without using their library or code
+
+5. Change the liquidator recipe
+	-	make starting recipe much cheaper and give the player 1 starting liquidator if they are on an island seed or playing Seablock
+	-	find way to increase the recipe cost for each recipe produced
+	-	If the above is not possible, create multiple recipes for liquidators that use 'golden fish' where each golden fish in the recipe makes it twice as cheap fish wise. You start with a fixed amount of golden fish in your inventory. This is so seablock isn't agonising with this mod
+
+Potential goofy mechanics:
+
+1. Fish piping 
+	-	Fish liquid is created in a unique machine
+	-	that liquid can then be used interchangeably with fish, using something like a fluid to item belt offloader
+	-	costs fish and water to produce
+	-	fish attrition!??!?!?
+
+
+

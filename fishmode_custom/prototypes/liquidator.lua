@@ -62,7 +62,7 @@ data:extend({{
       1.3999999999999999
     }
   },
-  is_military_target = true,
+  is_military_target = false,
   corpse = "big-remnants",
   damaged_trigger_effect = {
     damage_type_filters = "fire",
@@ -145,10 +145,7 @@ data:extend({{
     fuel_category = "fish-fuel",
     fuel_inventory_size = 1,
     type = "burner",
-    --don't do this, the biters do not like it
-    --emissions_per_minute = 200,
-
-    --TODO: add  an identical copy of the liquidator which does create pollution whenever fish are added in 
+    emissions_per_minute = 100,
   },
   energy_usage = "1MW",
   collision_box = {{-1.2, -1.2}, {1.2, 1.2}},

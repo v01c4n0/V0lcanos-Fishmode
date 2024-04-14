@@ -24,8 +24,8 @@ V0lcano:
 
 -- Expensive ore creation recipes using only fish
 
--- Tripled assembly machine energy usage to balance pollution compared to vanilla TODO: add a setting that makes this a slider
+-- Doubled energy usage for assembly machines, to make up for the lack of pollution from electric mining drills and furnaces. Can be changed in mod settings
 
-
+-- Transmutation devices now produce 100 pollution per minute. This is identical to 10 electric mining drills.
 
 -- How much Fish per Minute can you get your base to? How will you conquer the unique recycling challenges to your items?

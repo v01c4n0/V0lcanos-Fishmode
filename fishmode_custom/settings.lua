@@ -48,6 +48,6 @@ data:extend({
     minimum_value = 1,
     maximum_value = 100,
     setting_type = "startup",
-    default_value = 3,
+    default_value = 2,
     },
 })

@@ -24,7 +24,7 @@ V0lcano:
 
 -- Expensive ore creation recipes using only fish
 
--- Tripled assembly machine energy usage to balance pollution compared to vanilla TODO: add a setting that makes this a slider
+-- Tripled assembling machine energy usage to balance pollution compared to vanilla. Can be adjusted in settings.
 
 
 

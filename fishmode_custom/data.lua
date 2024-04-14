@@ -10,9 +10,10 @@ require("__fishmode_custom__/lib/public/data-stages/paths")
 require(kr_path .. "lib/private/data-stages/utils/krastorio_utils")
 
 
-
+-- Should I add a mod setting for these values or not? I think they're an important part of game balance so I don't think they should be available 
 local fishAmount = 5
-local rawCraftTime = 16
+local rawCraftTime = 6.4
+--log(rawCraftTime)
 
 --Creates all the purely fish-based recipes for raw resources for when they can't be decrafted
 --TODO: automate this process in the data-final-fixes file so that all raw resources from any mod can be made this way
@@ -73,7 +74,7 @@ local oil = table.deepcopy(data.raw["resource"]["crude-oil"])
 -- create the recipe protocategory from scratch
 local recipe2 = {
 	type = "recipe",
-    category = "crafting-with-fluid",
+    category = "oil-processing",
     name = "fish-craft-crude-oil",
     enabled = true,
     energy_required = rawCraftTime, -- time to craft in seconds (at crafting speed 1)
@@ -101,9 +102,12 @@ local recipe = {
 
 data:extend{uraniumOre, recipe}
 
-data.raw["assembling-machine"]["assembling-machine-1"].energy_usage = "225kW"
-data.raw["assembling-machine"]["assembling-machine-2"].energy_usage = "450kW"
-data.raw["assembling-machine"]["assembling-machine-3"].energy_usage = "675kW"
+--log(settings.startup["Asssembly-Machine-Power-Consumption"].value)
+assemblyMachinePowerConsumptionMultiplier = ((settings.startup["Asssembly-Machine-Power-Consumption"].value)*75)
+
+data.raw["assembling-machine"]["assembling-machine-1"].energy_usage = (1*assemblyMachinePowerConsumptionMultiplier .. "kW")
+data.raw["assembling-machine"]["assembling-machine-2"].energy_usage = (2*assemblyMachinePowerConsumptionMultiplier .. "kW")
+data.raw["assembling-machine"]["assembling-machine-3"].energy_usage = (5*assemblyMachinePowerConsumptionMultiplier .. "kW")
 
 
 data.raw.capsule["raw-fish"].fuel_category = "fish-fuel"

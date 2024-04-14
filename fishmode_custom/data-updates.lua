@@ -1,11 +1,14 @@
+--This is all copied from krastorio mandatory-vanilla-changes/entity-changes LOL
+
 local table = require("__flib__.table")
+
 
 local function transferFromFurnacesToAssemblers(furnace_name)
   if data.raw.furnace[furnace_name] then
     local furnace = krastorio_utils.tables.fullCopy(data.raw.furnace[furnace_name])
     furnace.type = "assembling-machine"
     furnace.source_inventory_size = nil
-    furnace.energy_usage = "350kW"
+   -- furnace.energy_usage = "350kW"
     -- Is this redundant?
     data.raw.furnace[furnace_name] = nil
     data:extend({ furnace })

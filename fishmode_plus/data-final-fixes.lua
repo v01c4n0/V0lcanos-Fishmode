@@ -485,7 +485,7 @@ local golden_fish_icons = {
     icon_size = 64,
   },
   {
-    icon = "__fishmode_custom__/legendary.png",
+    icon = "__fishmode_plus__/legendary.png",
     scale = 0.4,
     shift = {-4, 4},
   }

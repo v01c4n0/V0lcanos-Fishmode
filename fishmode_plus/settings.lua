@@ -56,7 +56,7 @@ data:extend({
 --]]
 {
   type = "double-setting",
-  name = "asssembly-machine-pollution-multiplier",
+  name = "assembling-machine-pollution-multiplier",
   minimum_value = 1,
   maximum_value = 100,
   setting_type = "startup",

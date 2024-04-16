@@ -139,9 +139,9 @@ function util.get_normalized_recipe_ingredients(recipe_name, expensive_mode)
   end
 
   if expensive_mode and recipe.expensive then
-    data.recipe = recipe.expensive
+    recipe = recipe.expensive
   elseif recipe.normal then
-    data.recipe = recipe.normal
+    recipe = recipe.normal
   end
 
   local normalized_ingredients = {}
@@ -163,7 +163,7 @@ function util.get_normalized_recipe_results(recipe_name)
   assert(recipe, "could not find recipe with name: "..recipe_name)
 
   if recipe.normal then
-    data.recipe = recipe.normal
+    recipe = recipe.normal
   end
 
   if recipe.result then

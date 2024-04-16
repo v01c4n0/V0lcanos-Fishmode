@@ -10,10 +10,6 @@ Fishmode roadmap & ideas:
 	-	one aspect is automated resource value assignment: find some way to give resource values algorithmically
 	-	bugfixes
 
-4. Do the licensing you goofbag
-	-	ensure proper attribution of original mod creator & message them
-	-	either message the krastorio mod creator & credit them or just replace the small section of code used to make furnace recipes work as assembly machines without using their library or code
-
 5. Change the liquidator recipe
 	-	make starting recipe much cheaper and give the player 1 starting liquidator if they are on an island seed or playing Seablock
 	-	find way to increase the recipe cost for each recipe produced

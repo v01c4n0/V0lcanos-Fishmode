@@ -1,0 +1,10 @@
+{
+  "name": "fishmode_plus",
+  "version": "0.1.0",
+  "title": "Fish Mode Plus",
+  "author": "V0lcano",
+  "factorio_version": "1.1",
+  "dependencies": [ "base >= 1.1", "! fishmode", "flib >= 0.14.0" ],
+  "description": "all your recipes are mixed up! Find a way to build a factory using the new recycling mechanic and part-fish recipes. \n Original mod by Cakem. This mod adds new furnace recipes for creating all the basic resources from fish, and increases pollution to match a game of vanilla factorio. "
+}
+

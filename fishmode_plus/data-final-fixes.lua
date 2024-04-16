@@ -245,9 +245,9 @@ local function fishify_recipe(recipe_name, for_expensive_mode)
 
   -- find the recipe and account for expensive/normal mode split
   if for_expensive_mode and recipe.expensive then
-    data.recipe = recipe.expensive
+    recipe = recipe.expensive
   elseif recipe.normal then
-    data.recipe = recipe.normal
+    recipe = recipe.normal
   end
 
   local total_fish = 0
@@ -331,7 +331,7 @@ end
 for recipe_name, new_ingredients in pairs(new_ingredients_by_recipe) do
   local recipe = data.raw.recipe[recipe_name]
   if recipe.normal then
-    data.recipe = recipe.normal
+    recipe = recipe.normal
   end
 
   recipe.ingredients = new_ingredients
@@ -434,7 +434,7 @@ for item_name, item_data in pairs(item_ranking.item_data) do
   if item_data.is_fluid or ignore_items[item_name] then
     goto continue
   end
-  if item_value == 0 or item_value == math.huge then
+  if item_value == 0 or item_value == math.huge or item_name == "raw-fish" then
     goto continue
   end
 
@@ -533,7 +533,7 @@ local golden_fish = {
 --   enabled = false,
 -- }
 
--- data:extend({golden_fish, golden_fish_recipe})
+data:extend({golden_fish, golden_fish_recipe})
 
 
 

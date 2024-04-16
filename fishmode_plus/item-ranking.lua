@@ -41,14 +41,14 @@ end
 local time_value_per_second = 0.14
 local base_items = {
   ["raw-fish"] = 1, -- this has to be 0 for now, otherwise all unassemble reciptes get fish as a result
-			-- changed it to 1 to fuck around for now
+			-- changed it to 1, unassemble recipes don't get fish? idk why
 	["coal"] = 1,
-  ["wood"] = 0.25,
+  ["wood"] = 0.5,
   ["iron-ore"] = 1,
   ["copper-ore"] = 1,
-  ["stone"] = 0.25,
+  ["stone"] = 0.5,
   ["uranium-ore"] = 2.0,
-  ["crude-oil"] = 0.25,
+  ["crude-oil"] = 0.5,
   ["water"] = 0.001,  -- offshore pumps produce 1200/s water, this isn't unreasonable, this creates 1 fish per second from that much water via decrafting
   ["used-up-uranium-fuel-cell"] = 30.0, -- TODO, this item isn't being reached by the parser (because it isn't created directly by any normal recipe)
   ["uranium-235"] = 23.5,

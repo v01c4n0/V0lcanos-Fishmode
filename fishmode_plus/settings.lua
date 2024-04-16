@@ -42,6 +42,8 @@ data:extend({
   default_value = 5,
 },
   --]]
+
+  --[[
    {
     type = "int-setting",
     name = "asssembly-machine-power-consumption",
@@ -50,4 +52,14 @@ data:extend({
     setting_type = "startup",
     default_value = 2,
     },
+})
+--]]
+{
+  type = "double-setting",
+  name = "asssembly-machine-pollution-multiplier",
+  minimum_value = 1,
+  maximum_value = 100,
+  setting_type = "startup",
+  default_value = 2,
+  },
 })

@@ -87,7 +87,7 @@ data:extend({{
   },
   flags = {
     "placeable-player",
-    -- "player-creation",
+    --"player-creation",
     "not-blueprintable",
     "not-deconstructable",
     "hidden"
@@ -127,9 +127,9 @@ data:extend({{
   -- -- furnace
   type = "furnace",
   result_inventory_size = 1, -- 3
-  crafting_categories = {
-    "fishy-liquidate"
-  },
+  --crafting_categories = {
+  --  "fishy-liquidate"
+  --},
   module_specification = {
     module_slots = 3,
   },
@@ -139,8 +139,8 @@ data:extend({{
     "productivity",
     "pollution"
   },
-  crafting_speed = 1,
-  source_inventory_size = 1,
+  --crafting_speed = 1,
+  --source_inventory_size = 1,
   energy_source = {
     fuel_category = "fish-fuel",
     fuel_inventory_size = 1,
@@ -148,8 +148,8 @@ data:extend({{
     emissions_per_minute = 100,
   },
   energy_usage = "1MW",
-  collision_box = {{-1.2, -1.2}, {1.2, 1.2}},
-  selection_box = {{-1.3, -1.3}, {1.3, 1.3}},
+  --collision_box = {{-1.2, -1.2}, {1.2, 1.2}},
+  --selection_box = {{-1.3, -1.3}, {1.3, 1.3}},
   crafting_categories = {"fishy-liquidate"},
   crafting_speed = 1,
   source_inventory_size = 1,

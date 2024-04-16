@@ -191,7 +191,7 @@ local function do_recipe_valuation_pass()
     -- total_cost = total_cost * (1 + (sum_of_ingredient_complexity * 0.01))
 
     -- debug to print item name alongside cost for easier testing
-    print(item_name, "recipe cost is", total_cost)
+    -- log(item_name, "recipe cost is", total_cost)
 
 
     -- record this recipe cost

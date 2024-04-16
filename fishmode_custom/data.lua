@@ -11,8 +11,8 @@ require(kr_path .. "lib/private/data-stages/utils/krastorio_utils")
 
 
 -- Should I add a mod setting for these values or not? I think they're an important part of game balance so I don't think they should be available 
-local fishAmount = 5
-local rawCraftTime = 6.4
+local fishAmount = 2
+local rawCraftTime = 3.2
 --log(rawCraftTime)
 
 --Creates all the purely fish-based recipes for raw resources for when they can't be decrafted

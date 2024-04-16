@@ -40,7 +40,7 @@ function util.round(number)
         return 0
     end
     
-    local power = 10 ^ (math.floor(math.log10(number)) - 1)
+    local power = 10 ^ (math.floor(math.log(number, 10)) - 1)
     local rounded = math.floor(number / power + 0.5) * power
     
     return math.min(65535, math.floor(rounded + 0.5))
@@ -139,9 +139,9 @@ function util.get_normalized_recipe_ingredients(recipe_name, expensive_mode)
   end
 
   if expensive_mode and recipe.expensive then
-    recipe = recipe.expensive
+    data.recipe = recipe.expensive
   elseif recipe.normal then
-    recipe = recipe.normal
+    data.recipe = recipe.normal
   end
 
   local normalized_ingredients = {}
@@ -163,7 +163,7 @@ function util.get_normalized_recipe_results(recipe_name)
   assert(recipe, "could not find recipe with name: "..recipe_name)
 
   if recipe.normal then
-    recipe = recipe.normal
+    data.recipe = recipe.normal
   end
 
   if recipe.result then

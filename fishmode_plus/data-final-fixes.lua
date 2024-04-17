@@ -1,27 +1,27 @@
-local util = require("util")
-local mapgen = require("mapgen")
+--library for creating human readable outputs from any value, including nested tables
+--if you want to view what the fuck is going wrong with a value write log(inspect(value))
+inspect = require ("inspect")
+
+--
+util = require("util")
+
+--
+mapgen = require("mapgen")
+
+--
+item_ranking = require("item-ranking")
+
+--Fish transmutation device prototype. 
+require("prototypes.liquidator")
+
+--TODO: clean up this garbage mess
 
 local energy_required_for_unassemble_recipes = 3
 
 -- seed rng
 -- util.seed_rng(settings.startup["fishblock-seed"].value)
 
-local item_ranking = require("item-ranking")
-require("prototypes.liquidator")
 
--- Helper for debugging purposes
-function dump(o)
-  if type(o) == 'table' then
-     local s = '{ '
-     for k,v in pairs(o) do
-        if type(k) ~= 'number' then k = '"'..k..'"' end
-        s = s .. '['..k..'] = ' .. dump(v) .. ','
-     end
-     return s .. '} '
-  else
-     return tostring(o)
-  end
-end
 
 
 function denominate_fish(number)

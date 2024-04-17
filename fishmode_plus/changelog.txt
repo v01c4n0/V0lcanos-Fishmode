@@ -1,18 +1,10 @@
-
-
-Version: 1.3.0 Fishmode (cakem)
-Date: 04. 04. 2024
-  Features:
-    - Transmutation devices consume fish as a fuel source.
-    - Transmutation devices can be affected by modules.
-    - If you have lots of fish to spare, you can now craft your own Transmutation devices.
-  Balancing:
-    - Complete rework of the formula used to determine trasmutation fish results. The new formula emphasizes complexity over raw ingredient value.
-    - Science packs require a lot less fish.
-
 ---------------------------------------------------------------------------------------------------
-
-Fishmode Plus:
+Version: 0.1.1 Fishmode Plus:
+Date: 17. 04. 2024
+  Balance Changes:
+    - changed the numbers in the fish cost evaluation algorithm
+    - raw resource recipes in furnaces now produce 2 per craft
+---------------------------------------------------------------------------------------------------
 Version: 0.1.0 
 Date: 16. 04. 2024
   General:
@@ -24,6 +16,23 @@ Date: 16. 04. 2024
 
   Balance Changes:
     - reduced biter time factor to 25 by default for biter evolution, to allow for the slower early game
-	  - doubled fish recipe values for copper and iron, left it the same for coal and stone. Iron and copper ore are value 1 now while coal and stone are value 0.5
+    - doubled fish recipe values for copper and iron, left it the same for coal and stone. Iron and copper ore are value 1 now while coal and stone are value 0.5
     - fish now have a recipe value of one
     - algorithm value for complexity increased to 0.05
+---------------------------------------------------------------------------------------------------
+Version: 1.3.0 Fishmode (cakem), 0.0.0 Fishmode plus
+Date: 04. 04. 2024
+  Features:
+    - Transmutation devices consume fish as a fuel source.
+    - Transmutation devices can be affected by modules.
+    - If you have lots of fish to spare, you can now craft your own Transmutation devices.
+  Balancing:
+    - Complete rework of the formula used to determine trasmutation fish results. The new formula emphasizes complexity over raw ingredient value.
+    - Science packs require a lot less fish.
+
+
+
+
+
+
+

@@ -1,3 +1,5 @@
+-- TODO: separate values for inputting an item into a fish transmutation device and creating the item. 
+
 local util = require("util")
 local M = {}
 
@@ -38,15 +40,17 @@ end
 -- items that are used as ingredients in accesable (though tech tree or otherwise) recipes, but do not themselves have a recipe,
 -- are "base items" and must have a value assigned to them manually
 -- the unit of value is 1 fish
-local time_value_per_second = 0.14
+
+-- used to be 0.14
+local time_value_per_second = 0.5
 local base_items = {
-  ["raw-fish"] = 1, -- this has to be 0 for now, otherwise all unassemble reciptes get fish as a result
+  ["raw-fish"] = 3 , -- this has to be 0 for now, otherwise all unassemble reciptes get fish as a result
 			-- changed it to 1, unassemble recipes don't get fish? idk why
 	["coal"] = 1,
-  ["wood"] = 0.5,
+  ["wood"] = 1,
   ["iron-ore"] = 1,
   ["copper-ore"] = 1,
-  ["stone"] = 0.5,
+  ["stone"] = 1,
   ["uranium-ore"] = 2.0,
   ["crude-oil"] = 0.5,
   ["water"] = 0.001,  -- offshore pumps produce 1200/s water, this isn't unreasonable, this creates 1 fish per second from that much water via decrafting
@@ -54,11 +58,13 @@ local base_items = {
   ["uranium-235"] = 23.5,
   ["uranium-238"] = 2.35,
 }
-local value_scale = 1/5
-time_value_per_second = time_value_per_second * value_scale
-for k, v in pairs(base_items) do
-  base_items[k] = v * value_scale
-end
+-- below value was 1/5, changed it to 1
+local value_scale = 1/3
+
+--no longer needed because value scale multiplies total_cost at the end instead
+--for k, v in pairs(base_items) do
+--  base_items[k] = v * value_scale
+--end
 
 local function create_item_data_entry(item_name)
   if not M.item_data[item_name] then
@@ -188,11 +194,12 @@ local function do_recipe_valuation_pass()
     total_cost = total_cost + time_value_per_second * (data.raw.recipe[recipe_name].energy_required or 0.5)
     -- factor the complexity of ingredients into total cost
     total_cost = total_cost + sum_of_ingredient_complexity * 0.1
-    -- total_cost = total_cost * (1 + (sum_of_ingredient_complexity * 0.01))
+    -- was 0.05, prior to that 0.01
 
     -- debug to print item name alongside cost for easier testing
     -- log(item_name, "recipe cost is", total_cost)
-
+    -- multiply by the value multiplier
+    total_cost = total_cost * value_scale
 
     -- record this recipe cost
     recipe_costs[recipe_name] = total_cost
@@ -291,12 +298,17 @@ function M.generate_ratings_for_all_items(weights, stackable_only)
 end
 
 
-for _, recipe_name in ipairs(M.accessible_recipes) do --TODO should I use this data to set is_enpoint for items?
+for _, recipe_name in ipairs(M.accessible_recipes) do --TODO should I use this data to set is_endpoint for items?
   local results = util.get_normalized_recipe_results(recipe_name)
   local ingredients = util.get_normalized_recipe_ingredients(recipe_name)
   for _, ingredient in ipairs(ingredients) do
     for _, result in ipairs(results) do
       if M.item_data[ingredient.name] then
+        -- removes table values of names because i somehow managed to fuck that up
+        if type(M.item_data[ingredient.name]) == "table" then 
+          log("We did it Johnson!")
+          break
+      end
         table.insert(M.item_data[ingredient.name].builds_into, result)
       end
     end

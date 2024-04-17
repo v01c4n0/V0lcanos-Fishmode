@@ -1,6 +1,7 @@
 -- Should I add a mod setting for these values or not? I think they're an important part of game balance so I don't think they should be available 
-local fishAmount = 2
+local fishAmount = 1
 local rawCraftTime = 3.2
+local craftAmount = 2
 --log(rawCraftTime)
 
 --Creates all the purely fish-based recipes for raw resources for when they can't be decrafted
@@ -15,7 +16,9 @@ local recipe5 = {
   enabled = true,
   energy_required = rawCraftTime, 
   ingredients = {{"raw-fish", fishAmount}},
-  result = "iron-ore"
+  results =  {
+    {type="item", name = "iron-ore", amount = craftAmount}
+  }
 }
 
 data:extend{ironOre, recipe5}
@@ -32,7 +35,9 @@ local recipe4 = {
     enabled = true,
     energy_required = rawCraftTime, 
     ingredients = {{"raw-fish", fishAmount}},
-    result = "copper-ore"
+    results =  {
+      {type="item", name = "copper-ore", amount = craftAmount}
+    }
 }
 
 data:extend{copperOre, recipe4}
@@ -49,7 +54,9 @@ local recipe3 = {
     enabled = true,
     energy_required = rawCraftTime, 
     ingredients = {{"raw-fish", fishAmount}},
-    result = "coal"
+    results =  {
+      {type="item", name = "coal", amount = craftAmount}
+    }
 }
 
 data:extend{coal, recipe3}
@@ -67,7 +74,7 @@ local recipe2 = {
     energy_required = rawCraftTime, 
     ingredients = {{"raw-fish", fishAmount}},
     results = {
-        {type="fluid", name = "crude-oil", amount = 20}
+        {type="fluid", name = "crude-oil", amount = 20 * craftAmount}
     }
 }
 
@@ -84,7 +91,9 @@ local recipe = {
     enabled = true,
     energy_required = rawCraftTime, 
     ingredients = {{"raw-fish", fishAmount}},
-    result = "uranium-ore"
+    results =  {
+      {type="item", name = "uranium-ore", amount = craftAmount}
+    }
 }
 
 data:extend{uraniumOre, recipe}

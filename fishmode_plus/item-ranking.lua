@@ -191,7 +191,7 @@ local function do_recipe_valuation_pass()
       total_cost = total_cost + M.item_data[item_name].value * item_count
     end
     -- add the estimated value of energy consumed to the total cost
-    total_cost = total_cost + time_value_per_second * (data.raw.recipe[recipe_name].energy_required)
+    total_cost = total_cost + time_value_per_second * (data.raw.recipe[recipe_name].energy_required or 1.5)
     -- factor the complexity of ingredients into total cost
     total_cost = total_cost + sum_of_ingredient_complexity * 0.5
     -- was 0.05, prior to that 0.01

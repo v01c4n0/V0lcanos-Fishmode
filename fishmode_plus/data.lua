@@ -1,7 +1,7 @@
 -- Should I add a mod setting for these values or not? I think they're an important part of game balance so I don't think they should be available 
-local fishAmount = 1
-local rawCraftTime = 3.2
-local craftAmount = 2
+local fishAmount = 4
+local rawCraftTime = 8
+local craftAmount = 1
 --log(rawCraftTime)
 
 --Creates all the purely fish-based recipes for raw resources for when they can't be decrafted

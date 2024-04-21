@@ -1,10 +1,15 @@
 Fishmode Plus:
 ---------------------------------------------------------------------------------------------------
-Version: 0.1.2 
+Version: 0.2.0
 Date: 17. 04. 2024
+  Features:
+    - Transmutation Device recipes produce a fixed rate of 20 fish per second regardless of input recipe. 
+  Bugfixes:
+    - fish transmutation recipes no longer produce an abysmal surplus, the fish transmutation output compared to the value of the item in fish is 2 times
+    - expect future changes to this recipe productivity based on complexity value (for example, productivity scales with 1.1^x where x is complexity, starting at 1.2 times at 0 complexity)\
   Balance Changes:
-    - increased the value of complexity and time in fish recycling values for recipes
-    - fish no longer has a recipe value, it turns out this created issues with creating fish from transmutation devices where recipes wouldn't create much more than put in.
+    - numerous recipe value changes. 
+    - raw resource production recipes are now much more expensive since fish can be acquired easier
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.1 
 Date: 17. 04. 2024

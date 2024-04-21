@@ -3,20 +3,6 @@
 local util = require("util")
 local M = {}
 
--- Helper for debugging purposes
-function dump(o)
-  if type(o) == 'table' then
-     local s = '{ '
-     for k,v in pairs(o) do
-        if type(k) ~= 'number' then k = '"'..k..'"' end
-        s = s .. '['..k..'] = ' .. dump(v) .. ','
-     end
-     return s .. '} '
-  else
-     return tostring(o)
-  end
-end
-
 
 -- declares variables for the item modifications and new fish magic recipes
 local function new_item_data()
@@ -44,9 +30,8 @@ end
 -- used to be 0.14
 local time_value_per_second = 2
 local base_items = {
-  ["raw-fish"] = 0 , -- this has to be 0 for now, otherwise all unassemble reciptes get fish as a result
+  ["raw-fish"] = 2 , -- this has to be 0 for now, otherwise all unassemble reciptes get fish as a result
 			-- changed it to 1, unassemble recipes don't get fish? idk why
-      -- DO NOT MAKE ABOVE VALUE 0 IT REALLY MESSES WITH THE GAME BALANCE
 	["coal"] = 1,
   ["wood"] = 1,
   ["iron-ore"] = 1,
@@ -60,7 +45,7 @@ local base_items = {
   ["uranium-238"] = 2.35,
 }
 -- below value was 1/5, changed it to 1
-local value_scale = 1/3
+local value_scale = 1/4
 
 --no longer needed because value scale multiplies total_cost at the end instead
 --for k, v in pairs(base_items) do
@@ -194,7 +179,7 @@ local function do_recipe_valuation_pass()
     -- add the estimated value of energy consumed to the total cost
     total_cost = total_cost + time_value_per_second * (data.raw.recipe[recipe_name].energy_required or 1.5)
     -- factor the complexity of ingredients into total cost
-    total_cost = total_cost + sum_of_ingredient_complexity * 0.3
+    total_cost = total_cost + sum_of_ingredient_complexity * 0.4
     -- was 0.05, prior to that 0.01
 
     -- debug to print item name alongside cost for easier testing

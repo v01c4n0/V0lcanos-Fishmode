@@ -192,7 +192,7 @@ local function construct_liquidate_recipe(item_name)
     subgroup = "fishy-liquidate",
     -- order = "z-", -- TODO sort by something
     type = "recipe",
-    energy_required = 5,
+    energy_required = 500,
     allow_as_intermediate = false,
     allow_intermediates = false,
     enabled = true,
@@ -423,10 +423,16 @@ for item_name, item_data in pairs(item_ranking.item_data) do
 
   local item_value = item_data.value
 
-  local value_mult = 1.0 - (1/2) ^ item_data.complexity
+  local value_mult = 2
+  
+  --(0.5 * item_data.value)
 
-  local base = item_data.cumulative_complexity / item_data.made_in_batch_of_size
-  local num_fish = base + item_value * value_mult
+log("Item name is" .. inspect(item_data.name) .. "/nItem value is:" .. inspect(item_data.value))
+
+  --local base = item_data.cumulative_complexity / item_data.made_in_batch_of_size
+
+  --local num_fish = base * value_mult
+  local num_fish = math.min(65535, item_data.value * value_mult)
   num_fish = math.min(65535, num_fish)
 
   local fish_chance = 1.0
@@ -454,6 +460,7 @@ for item_name, item_data in pairs(item_ranking.item_data) do
   end
 
   table.insert(new_recipe.results, make_unassemble_result("raw-fish", num_fish, 1))
+  new_recipe.energy_required = (0.05 * num_fish)
   table.insert(unassemble_recipes, new_recipe)
   ::continue::
 end

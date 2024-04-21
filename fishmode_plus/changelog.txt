@@ -1,7 +1,15 @@
 Fishmode Plus:
 ---------------------------------------------------------------------------------------------------
+Version: 0.2.3
+Date: 22. 04. 2024
+  General:
+    - added stone recipe. How did I forget this before?
+  Bugfixes:
+    - matched setting name to key
+
+---------------------------------------------------------------------------------------------------
 Version: 0.2.2
-Date: 17. 04. 2024
+Date: 22. 04. 2024
   Bugfixes:
     - essential bugfixes
 
@@ -11,7 +19,7 @@ Date: 22. 04. 2024
   Features:
     - Transmutation Device recipes produce a fixed rate of 20 fish per second regardless of input recipe. 
   Bugfixes:
-    - fish transmutation recipes no longer produce an abysmal surplus. It should produced at least 1.5x the value of the item put in
+    - fish transmutation recipes no longer produce an abysmal surplus. It should produce at least 1.5x the value of the item put in
   Balance Changes:
     - numerous recipe value changes. 
     - raw resource production recipes are now much more expensive since fish can be acquired easier
@@ -38,7 +46,7 @@ Date: 16. 04. 2024
     - doubled fish recipe values for copper and iron, left it the same for coal and stone. Iron and copper ore are value 1 now while coal and stone are value 0.5
     - fish now have a recipe value of one
     - algorithm value for complexity increased to 0.05
----------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------d
 Version: 1.3.0 Fishmode (cakem), 0.0.0 Fishmode plus
 Date: 04. 04. 2024
   Features:

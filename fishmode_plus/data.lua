@@ -1,5 +1,5 @@
 -- Should I add a mod setting for these values or not? I think they're an important part of game balance so I don't think they should be available 
-local fishAmount = 4
+local fishAmount = 2
 local rawCraftTime = 8
 local craftAmount = 1
 --log(rawCraftTime)

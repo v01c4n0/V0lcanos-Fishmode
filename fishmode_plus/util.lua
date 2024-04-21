@@ -1,5 +1,3 @@
--- this file contains the fucky wucky algorithm that fish mode uses for altering its recipes
-
 local util = {}
 
 -- this rng implementation is borrowed from https://stackoverflow.com/a/20177466

@@ -420,20 +420,19 @@ end
 -- create liquidate recipes
 for item_name, item_data in pairs(item_ranking.item_data) do
   -- local canonical_recipe = item_data.canonical_recipe
-
-  local item_value = item_data.value
-
-  local value_mult = 2
   
   --(0.5 * item_data.value)
 
-log("Item name is" .. inspect(item_data.name) .. "/nItem value is:" .. inspect(item_data.value))
+log("Item name is" .. inspect(item_name) .. "\nItem value is:" .. inspect(item_data.value))
 
-  --local base = item_data.cumulative_complexity / item_data.made_in_batch_of_size
+local item_value = item_data.value
 
-  --local num_fish = base * value_mult
-  local num_fish = item_data.value * value_mult
-  --num_fish = math.min(65535, num_fish)
+local value_mult = 1.0 - (1/2) ^ item_data.complexity
+
+local base = item_data.cumulative_complexity / item_data.made_in_batch_of_size
+local num_fish = base + item_value * value_mult
+
+  num_fish = math.min(65535, num_fish)
 
   local fish_chance = 1.0
 

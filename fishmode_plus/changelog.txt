@@ -1,5 +1,11 @@
+Fishmode Plus:
 ---------------------------------------------------------------------------------------------------
-Version: 0.1.1 Fishmode Plus:
+Version: 0.1.2 
+Date: 17. 04. 2024
+  Balance Changes:
+    - increased the value of complexity and time in fish recycling values for recipes, longer recipes should now yield much more of a fish surplus
+---------------------------------------------------------------------------------------------------
+Version: 0.1.1 
 Date: 17. 04. 2024
   Balance Changes:
     - changed the numbers in the fish cost evaluation algorithm

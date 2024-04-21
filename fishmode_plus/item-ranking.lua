@@ -30,7 +30,7 @@ end
 -- used to be 0.14
 local time_value_per_second = 2
 local base_items = {
-  ["raw-fish"] = 2 , -- this has to be 0 for now, otherwise all unassemble reciptes get fish as a result
+  ["raw-fish"] = 0 , -- this has to be 0 for now, otherwise all unassemble reciptes get fish as a result
 			-- changed it to 1, unassemble recipes don't get fish? idk why
 	["coal"] = 1,
   ["wood"] = 1,
@@ -45,7 +45,7 @@ local base_items = {
   ["uranium-238"] = 2.35,
 }
 -- below value was 1/5, changed it to 1
-local value_scale = 1/8
+local value_scale = 1/4
 
 --no longer needed because value scale multiplies total_cost at the end instead
 --for k, v in pairs(base_items) do

@@ -432,8 +432,8 @@ log("Item name is" .. inspect(item_data.name) .. "/nItem value is:" .. inspect(i
   --local base = item_data.cumulative_complexity / item_data.made_in_batch_of_size
 
   --local num_fish = base * value_mult
-  local num_fish = math.min(65535, item_data.value * value_mult)
-  num_fish = math.min(65535, num_fish)
+  local num_fish = item_data.value * value_mult
+  --num_fish = math.min(65535, num_fish)
 
   local fish_chance = 1.0
 
@@ -460,7 +460,7 @@ log("Item name is" .. inspect(item_data.name) .. "/nItem value is:" .. inspect(i
   end
 
   table.insert(new_recipe.results, make_unassemble_result("raw-fish", num_fish, 1))
-  new_recipe.energy_required = (0.1 * num_fish)
+  new_recipe.energy_required = (0.05 * num_fish)
   table.insert(unassemble_recipes, new_recipe)
   ::continue::
 end

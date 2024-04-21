@@ -42,10 +42,11 @@ end
 -- the unit of value is 1 fish
 
 -- used to be 0.14
-local time_value_per_second = 3
+local time_value_per_second = 2
 local base_items = {
-  ["raw-fish"] = 3 , -- this has to be 0 for now, otherwise all unassemble reciptes get fish as a result
+  ["raw-fish"] = 0 , -- this has to be 0 for now, otherwise all unassemble reciptes get fish as a result
 			-- changed it to 1, unassemble recipes don't get fish? idk why
+      -- DO NOT MAKE ABOVE VALUE 0 IT REALLY MESSES WITH THE GAME BALANCE
 	["coal"] = 1,
   ["wood"] = 1,
   ["iron-ore"] = 1,
@@ -193,7 +194,7 @@ local function do_recipe_valuation_pass()
     -- add the estimated value of energy consumed to the total cost
     total_cost = total_cost + time_value_per_second * (data.raw.recipe[recipe_name].energy_required or 1.5)
     -- factor the complexity of ingredients into total cost
-    total_cost = total_cost + sum_of_ingredient_complexity * 0.5
+    total_cost = total_cost + sum_of_ingredient_complexity * 0.3
     -- was 0.05, prior to that 0.01
 
     -- debug to print item name alongside cost for easier testing

@@ -45,7 +45,7 @@ local base_items = {
   ["uranium-238"] = 2.35,
 }
 -- below value was 1/5, changed it to 1
-local value_scale = 1/6
+local value_scale = 1/8
 
 --no longer needed because value scale multiplies total_cost at the end instead
 --for k, v in pairs(base_items) do

@@ -460,7 +460,7 @@ log("Item name is" .. inspect(item_data.name) .. "/nItem value is:" .. inspect(i
   end
 
   table.insert(new_recipe.results, make_unassemble_result("raw-fish", num_fish, 1))
-  new_recipe.energy_required = (0.05 * num_fish)
+  new_recipe.energy_required = (0.1 * num_fish)
   table.insert(unassemble_recipes, new_recipe)
   ::continue::
 end

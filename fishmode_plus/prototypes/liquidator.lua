@@ -131,7 +131,7 @@ data:extend({{
   --  "fishy-liquidate"
   --},
   module_specification = {
-    module_slots = 3,
+    module_slots = 4,
   },
   allowed_effects = {
     "consumption",
@@ -145,7 +145,7 @@ data:extend({{
     fuel_category = "fish-fuel",
     fuel_inventory_size = 1,
     type = "burner",
-    emissions_per_minute = 100,
+    emissions_per_minute = 200,
   },
   energy_usage = "1MW",
   --collision_box = {{-1.2, -1.2}, {1.2, 1.2}},

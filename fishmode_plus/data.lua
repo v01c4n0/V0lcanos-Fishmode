@@ -7,7 +7,8 @@ local craftAmount = 1
 --Creates all the purely fish-based recipes for raw resources for when they can't be decrafted
 --TODO: automate this process in the data-final-fixes file so that all raw resources from any mod can be made this way
 
-local stone = table.deepcopy(data.raw["resource"]["stone])
+
+local stone = table.deepcopy(data.raw["resource"]["stone"])
 
 local recipe6 = {
 	type = "recipe",

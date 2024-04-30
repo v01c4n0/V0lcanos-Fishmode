@@ -64,6 +64,7 @@ data:extend({{
   },
   is_military_target = false,
   corpse = "big-remnants",
+
   damaged_trigger_effect = {
     damage_type_filters = "fire",
     entity_name = "spark-explosion",
@@ -85,11 +86,11 @@ data:extend({{
     },
     type = "create-entity"
   },
+
   flags = {
+    "player-creation",
     "placeable-player",
-    --"player-creation",
-    "not-blueprintable",
-    "not-deconstructable",
+    "not-flammable",
     "hidden"
   },
   tint = {r = 0.4, g = 0.4, b = 1.0},
@@ -123,6 +124,7 @@ data:extend({{
       1.5
     }
   },
+
   subgroup = "other",
   -- -- furnace
   type = "furnace",
@@ -172,7 +174,6 @@ data:extend({{
       },
     }
   },
-
   -- -- autoplace
   autoplace = {
     order = "f-i-s-h",
@@ -196,7 +197,7 @@ data:extend({{
   subgroup = "other",
   order = "d-a-a",
   place_result = "liquidator",
-  stack_size = 50
+  stack_size = 50,
 }})
 data:extend({{
   type = "recipe",

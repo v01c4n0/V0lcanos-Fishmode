@@ -66,6 +66,12 @@ script.on_init(function()
   end
 end)
 
+script.on_event(defines.events.on_built_entity,function(event)
+  if event.created_entity.name == "liquidator" then
+    event.created_entity.destructible = false
+  end
+  end)
+
 local function unlock_unassemble_recipes_from_research(force, research_name)
   for _, effect in ipairs(force.technologies[research_name].effects) do
       if effect.type == "unlock-recipe" then
@@ -114,3 +120,15 @@ script.on_event(defines.events.on_player_created, function(event)
   local player = game.get_player(event.player_index)
   unlock_proper_unassemble_recipe_for_force(player.force)
 end)
+
+
+
+script.on_configuration_changed(
+  function()
+    for _, surface in pairs(game.surfaces) do
+      for _, entity in pairs(surface.find_entities_filtered{name ="liquidator"}) do
+        entity.destructible = false
+      end
+    end
+end)
+

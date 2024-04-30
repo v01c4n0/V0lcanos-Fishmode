@@ -1,5 +1,10 @@
 Fishmode Plus:
 ---------------------------------------------------------------------------------------------------
+Version: 0.2.4
+Date: 1. 05. 2024
+  General:
+    - Fish Transmutation devices are now indestructible and can be used in blueprints
+---------------------------------------------------------------------------------------------------
 Version: 0.2.3
 Date: 22. 04. 2024
   General:

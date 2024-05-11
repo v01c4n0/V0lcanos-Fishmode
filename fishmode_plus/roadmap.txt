@@ -1,5 +1,6 @@
 
 Fishmode roadmap & ideas:
+1. Add debug setting to allow players to see item complexity values (relevant for seeing how much you get when recycling)
 
 2. Universal recycling for all recipes with only 1 input
 	-	costs fish to recycle

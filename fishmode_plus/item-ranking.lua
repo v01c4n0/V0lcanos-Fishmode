@@ -25,6 +25,19 @@ local function new_item_data()
   }
 end
 
+local function new_recipe_data()
+  return {
+    canonical_recipe = "",
+    made_in_batch_of_size = 0,
+    value = nil,
+    makes_fluid = false,
+    tech_level = 0,
+    complexity = nil,
+    --cumulative_complexity = nil,
+    is_science = false,
+  }
+end
+
 -- items that are used as ingredients in accesable (though tech tree or otherwise) recipes, but do not themselves have a recipe,
 -- are "base items" and must have a value assigned to them manually
 -- the unit of value is 1 fish
@@ -65,9 +78,12 @@ local function create_item_data_entry(item_name)
   end
 end
 
--- initialize item data for each base item
+--Table for item data used for fish recipes
 M.item_data = { }
+--Table for recipe data used for fish recipes
 M.recipe_data = {}
+
+-- initialize item data for each base item
 for item_name, value in pairs(base_items) do
   M.item_data[item_name] = new_item_data()
   M.item_data[item_name].value = value
@@ -213,51 +229,62 @@ local function do_recipe_valuation_pass()
     -- record this recipe cost
     recipe_costs[recipe_name] = total_cost
 
+
     -- update item data for each result
     local normalized_results = util.get_normalized_recipe_results(recipe_name)
+    local tech_level = M.get_recipe_tech_level(recipe_name)
+    local recipe_data = new_recipe_data()
+
+    --log(inspect(M.recipe_data[recipe_name]))
+    recipe_data.value = total_cost
+    recipe_data.canonical_recipe = recipe_name
+    recipe_data.tech_level = tech_level
+    if recipe_data.complexity == nil then
+      recipe_data.complexity = (sum_of_ingredient_complexity + num_of_ingredients)
+    else
+      recipe_data.complexity = math.max(recipe_data.complexity, sum_of_ingredient_complexity + num_of_ingredients)
+    end
+
     for _, result in ipairs(normalized_results) do
       create_item_data_entry(result.name)
       local iidd = M.item_data[result.name]
 
-      local tech_level = M.get_recipe_tech_level(recipe_name)
+
       local should_become_canon = iidd.canonical_recipe == "" or (iidd.tech_level > tech_level and result.catalyst_amount == 0)
       should_become_canon = should_become_canon and not iidd.is_base_item
       log(should_become_canon)
       if should_become_canon then
-        log("no. of results: " .. #normalized_results)
+        --log("no. of results: " .. #normalized_results)
         iidd.value = total_cost / (result.amount * #normalized_results)
-        --log("Recipe name: " .. recipe_name .. "\nRecipe cost: " .. inspect(M.item_data[result.name]))
+        
         iidd.canonical_recipe = recipe_name
-        log("canonical recipe: " .. iidd.canonical_recipe)
+        --log("canonical recipe: " .. iidd.canonical_recipe)
         iidd.tech_level = tech_level
         --iidd.cumulative_complexity = sum_of_ingredient_complexity
         iidd.is_fluid = result.type == "fluid"
         
         if iidd.complexity == nil then
-          iidd.complexity =  (sum_of_ingredient_complexity + num_of_ingredients) / (result.amount * #normalized_results)
+          iidd.complexity =  (sum_of_ingredient_complexity + num_of_ingredients)-- / (result.amount * #normalized_results)
           --iidd.cumulative_complexity = sum_of_ingredient_complexity
         else
-          iidd.complexity = math.max(iidd.complexity, greatest_ingredient_complexity + (num_of_ingredients/(result.amount * #normalized_results)))
+          iidd.complexity = math.max(iidd.complexity, sum_of_ingredient_complexity + (num_of_ingredients))--/(result.amount * #normalized_results)))
           --iidd.cumulative_complexity = math.max(iidd.cumulative_complexity, sum_of_ingredient_complexity)
         end
         iidd.made_in_batch_of_size = result.amount
+        M.item_data[result.name] = iidd
       end
-      M.recipe_data[recipe_name] = new_item_data()
-      M.recipe_data[recipe_name] = 
-      {
-        value = total_cost,
-        canonical_recipe = recipe_name,
-        tech_level = tech_level,
-        M.recipe_data[recipe_name]== nil then
-          M.recipe_data[recipe_name] = 
-        end
-      }
+      if result.type == "fluid" then 
+        recipe_data.makes_fluid = true
+      end
+      --log(inspect(recipe_data))
+      recipe_data.made_in_batch_of_size = recipe_data.made_in_batch_of_size + result.amount
+      log("Recipe name: " .. recipe_name .. "\nRecipe info: " .. inspect(M.item_data[result.name]))
     end
-
+    M.recipe_data[recipe_name] = recipe_data
     -- count this recipe 
     num_recipes_resolved_this_pass = 1
-    log("recipe valuated" .. inspect(recipe_name))
-    log("Item value is: " .. total_cost)
+    --log("recipe valuated" .. inspect(recipe_name))
+    --log("Item value is: " .. total_cost)
     --if recipe_name == "logistic-science-pack" then log(M.item_data[recipe_name]) end
     ::skip_this_recipe::
   end

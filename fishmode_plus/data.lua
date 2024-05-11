@@ -1,3 +1,4 @@
+inspect = require ("inspect")
 -- Should I add a mod setting for these values or not? I think they're an important part of game balance so I don't think they should be available 
 local fishAmount = 2
 local rawCraftTime = 6
@@ -7,6 +8,11 @@ local craftAmount = 1
 --Creates all the purely fish-based recipes for raw resources for when they can't be decrafted
 --TODO: automate this process in the data-final-fixes file so that all raw resources from any mod can be made this way
 
+--local fish = table.deepcopy(data.raw["fish"]["fish"])
+
+--fish.stack_size = 200
+log(inspect(data.raw["capsule"]["raw-fish"]))
+data.raw["capsule"]["raw-fish"].stack_size = 200
 
 local stone = table.deepcopy(data.raw["resource"]["stone"])
 
@@ -131,7 +137,7 @@ data.raw["assembling-machine"]["assembling-machine-1"].energy_source.emissions_p
 data.raw["assembling-machine"]["assembling-machine-2"].energy_source.emissions_per_minute = (3*assemblyMachinePollutionMultiplier)
 data.raw["assembling-machine"]["assembling-machine-3"].energy_source.emissions_per_minute = (2*assemblyMachinePollutionMultiplier)
 
-
+--[[
 data.raw.capsule["raw-fish"].fuel_category = "fish-fuel"
 data.raw.capsule["raw-fish"].fuel_value = "12MJ"
 
@@ -141,7 +147,7 @@ data:extend({
     name = "fish-fuel"
   }
   })
-
+--]]
   data.raw["map-settings"]["map-settings"].enemy_evolution = {
     enabled = true,
     time_factor =       0.0000025,

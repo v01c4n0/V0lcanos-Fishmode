@@ -219,15 +219,13 @@ local value_of_fish = 1
 local function get_ingredients_total_value(ingredients, recipe_name)
   local total = 0
 
-  for _, ingr in ipairs(ingredients) do
-    local item_data = item_ranking.recipe_data[ingr.name]
-    if item_data then
-      total = total + (item_ranking.recipe_data[ingr.name].value * ingr.amount)
-    end
-  end
+  local ingredient_name = ingredients[1].name
+  local ingredient_amount = ingredients[1].amount
+  log(inspect(ingredients))
+  log(ingredient_name)
   log(recipe_name)
-  log(inspect(item_ranking.recipe_data[recipe_name]))
-  total = total * (item_ranking.recipe_data[recipe_name].made_in_batch_of_size)
+  --log(inspect(item_ranking.recipe_data[recipe_name]))
+  total = item_ranking.item_data[ingredient_name].value * item_ranking.item_data[ingredient_name].made_in_batch_of_size
   return total / value_of_fish
 end
 
@@ -370,6 +368,7 @@ end
 local ignore_items = {
   -- ["landfill"]=true,
   -- ["used-up-uranium-fuel-cell"]=true,
+  ["space-science-pack"]=true
 }
 
 -- create unassemble recipes
@@ -434,7 +433,7 @@ for item_name, item_data in pairs(item_ranking.item_data) do
       result.amount = nil
       new_recipe.probability = nil
     else
-      for i=1, #util.get_normalized_recipe_ingredients(item_recipe) - 1 do
+      for i=#util.get_normalized_recipe_ingredients(item_recipe),1 , -1 do
         additional_result = table.deepcopy(new_result)
         new_result.probability = base_probability
         table.insert(new_recipe.results, new_result)
@@ -453,7 +452,7 @@ for item_name, item_data in pairs(item_ranking.item_data) do
 
   
   --(0.5 * item_data.value)
---log("Item name is" .. inspect(item_name) .. "\nItem value is:" .. inspect(item_data.value))
+log("Item name is" .. inspect(item_name) .. "\nItem value is:" .. inspect(item_data.value))
 
 local item_value = item_data.value
 
@@ -461,9 +460,9 @@ if item_name == "space-science-pack" then
   item_value= 0 
 end
 
-local value_mult = 2
+local value_mult = 1
 if item_data.complexity ~= nil then
-  value_mult = 2 - ((3/4) ^ item_data.complexity)
+  value_mult = math.max(1, math.pow(item_data.complexity, 1/3))
 end
 
 local num_fish = (item_value) * value_mult
@@ -495,8 +494,9 @@ local num_fish = (item_value) * value_mult
   end
 
   table.insert(new_recipe.results, make_unassemble_result("raw-fish", num_fish, 1))
-  new_recipe.energy_required = (0.05 * num_fish)
+  new_recipe.energy_required = (0.1 * item_value)
   table.insert(unassemble_recipes, new_recipe)
+  log("Liquidate Recipe data for " .. new_recipe.name .. " is: " .. inspect(new_recipe))
   ::continue::
 end
 
@@ -506,9 +506,9 @@ for item_name, item_data in pairs(item_ranking.item_data) do
     local recipe = data.raw.recipe[item_name]
     if recipe and recipe.ingredients then
       -- local base_cost = item_data.cumulative_complexity * settings.startup["science-pack-fish"].value
-      local base_cost = item_data.value
+      local base_cost = item_data.value --* (item_data.made_in_batch_of_size)
       local x = 1 --+ (item_data.tech_level)
-      --x = x * (recipe.result_count or 1)
+      x = x * (recipe.result_count or 1)
       local cost = math.ceil(x * base_cost)
 
       --log("Item name is: " .. inspect(item_name) .. "\nItem cost is: " .. inspect(cost))

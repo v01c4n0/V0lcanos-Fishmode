@@ -471,8 +471,8 @@ for item_name, item_data in pairs(item_ranking.item_data) do
     if recipe and recipe.ingredients then
       -- local base_cost = item_data.cumulative_complexity * settings.startup["science-pack-fish"].value
       local base_cost = item_data.value
-      local x = 1 + (item_data.tech_level)
-      x = x * (recipe.result_count or 1)
+      local x = 1 --+ (item_data.tech_level)
+      --x = x * (recipe.result_count or 1)
       local cost = math.ceil(x * base_cost)
       
       -- add the fish

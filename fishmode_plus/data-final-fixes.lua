@@ -476,9 +476,10 @@ local num_fish = (item_value) * value_mult
   if item_data.is_fluid or ignore_items[item_name] then
     goto continue
   end
-  if item_value == 0 or item_value == nil or item_name == "raw-fish" then
+  if item_value == 0 or item_value == nil or item_name == "raw-fish" or item_data.is_base_item then
     goto continue
   end
+
 
   num_fish = math.floor(num_fish)
   if num_fish < 1 then

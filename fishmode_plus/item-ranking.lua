@@ -23,6 +23,7 @@ local function new_item_data()
     builds_into = {},
     is_science = false,
     value_mult = 1,
+    description = false,
   }
 end
 
@@ -94,7 +95,6 @@ for item_name, value in pairs(base_items) do
   M.item_data[item_name].tech_level = 0
   M.item_data[item_name].is_base_item = true
   M.item_data[item_name].tech_level = 0
-  M.item_data[item_name].value_mult = 1
   if item_name == "crude-oil" or item_name == "water" then
     M.item_data[item_name].is_fluid = true
   end

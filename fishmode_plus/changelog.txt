@@ -1,5 +1,5 @@
 ---------------------------------------------------------------------------------------------------
-Version: 0.2.12
+Version: 0.2.13
 Date: 11. 05. 2024
   Changes:
     -  Adds description to items that lets you see their transmutation multiplier. Handy for knowing which items are better to use in the transmutation devices

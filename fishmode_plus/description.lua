@@ -1,4 +1,5 @@
 local allowed_categories = {"item", "item-with-entity-data", "armor", "capsule", "rail-planner", "rail-chain-signal", "rail-signal", "ammo", "ammo-turret", "item-with-inventory", "item-with-label", "item-with-tags", "gun"}
+
 if settings.startup["visible-liquidate-multiplier"].value then
     for category, prototype in pairs(data.raw) do
         for item_name, item in pairs(prototype) do
@@ -20,18 +21,17 @@ if settings.startup["visible-liquidate-multiplier"].value then
                                 item.localised_description = {
                                     "",
                                     item.localised_description, "\n",
-                                    {"", "[font=default-semibold][color=255,230,192]Transmute fish multiplier: [/color][/font]", digit1, "x"}
+                                    {"rescription-liquidate-multiplier", digit1}
                                 }
                             else
-                                item.localised_description = {"", "[font=default-semibold][color=255,230,192]Transmute fish multiplier: [/color][/font]", digit1, "x"}
+                                item.localised_description = {"rescription-liquidate-multiplier", digit1}
                             end
-
-                            print(item_name)
+                            log(item_name)
                             log("why")
-                            print(digit1)
-                            print(digit2)
-                            print(digit3)
-                            print(inspect(item.localised_description))
+                            log(digit1)
+                            --print(digit2)
+                            --(digit3)
+                            log(inspect(item.localised_description))
 
                         end
                     end

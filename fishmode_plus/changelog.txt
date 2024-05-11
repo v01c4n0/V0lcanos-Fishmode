@@ -3,8 +3,9 @@ Version: 0.2.11
 Date: 11. 05. 2024
   Changes:
     -  Algorithm for determining fish output from a given item now is done according to the item's fish value * the cube root of the complexity value. This means that a value of 0 or 1 complexity will produce as much fish as the item is worth, 8 will produce 2x as much, 27 complexity will produce 3x as much as its worth and so on. I plan to make these values visible to the player in the future with an option to turn them off
-    -  tldr; items with longer crafting chains or more items required will produce more a higher multiplier of fish out vs fish in
+    -  tldr; items with longer crafting chains or more items required will produce a higher multiplier of fish out vs fish in
     -  time taken per recipe is now based on the fish value, and not the output multiplier. So higher complexity items when used as input will create a higher item/s output. At a complexity of 1, the output is 10/s, at 8 20/s, so on like above 
+    -  removed requirement from liquidators to have fish as fuel
   Bugfixes:
     -  science pack recipes are back to having their fish value multiplied by the batch size
 ---------------------------------------------------------------------------------------------------

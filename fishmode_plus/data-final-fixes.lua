@@ -8,8 +8,10 @@ util = require("util")
 
 mapgen = require("mapgen")
 
-
 item_ranking = require("item-ranking")
+
+--Adds description line for complexity
+
 
 --Fish transmutation device prototype. 
 require("prototypes.liquidator")
@@ -464,6 +466,7 @@ local value_mult = 1
 if item_data.complexity ~= nil then
   value_mult = math.max(1, math.pow(item_data.complexity, 1/3))
 end
+item_ranking.item_data[item_name].value_mult = value_mult
 
 local num_fish = (item_value) * value_mult
   num_fish = math.min(65535, num_fish)
@@ -678,3 +681,4 @@ if not settings.startup["use-normal-mapgen"].value then
   mapgen.modify_mapgen()
 end
 
+require("description")

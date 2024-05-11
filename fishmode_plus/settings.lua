@@ -7,53 +7,12 @@ data:extend({
     setting_type = "startup",
     default_value = 1234,
   },
-  --[[ 
-  {
-  type = "double-setting",
-  name = "fish-cost-multiplier",
-  minimum_value = 0,
-  maximum_value = 100,
-  setting_type = "startup",
-  default_value = 1,
-  },
-  --]] 
-  --[[ 
-  {
-  type = "double-setting",
-  name = "fish-result-multiplier",
-  minimum_value = 0,
-  maximum_value = 100,
-  setting_type = "startup",
-  default_value = 1,
- },  
- --]]
   {
     type = "bool-setting",
     name = "use-normal-mapgen",
     setting_type = "startup",
     default_value = false,
   },
-  --[[ {
-  type = "int-setting",
-  name = "science-pack-fish",
-  minimum_value = 0,
-  maximum_value = 100,
-  setting_type = "startup",
-  default_value = 5,
-},
-  --]]
-
-  --[[
-   {
-    type = "int-setting",
-    name = "asssembly-machine-power-consumption",
-    minimum_value = 1,
-    maximum_value = 100,
-    setting_type = "startup",
-    default_value = 2,
-    },
-})
---]]
 {
   type = "double-setting",
   name = "assembling-machine-pollution-multiplier",
@@ -70,4 +29,10 @@ data:extend({
   setting_type = "startup",
   default_value = 1/4,
   },
+{
+  type = "bool-setting",
+  name = "visible-liquidate-multiplier",
+  setting_type = "startup",
+  default_value = true
+}
 })

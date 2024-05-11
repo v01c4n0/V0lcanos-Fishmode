@@ -77,7 +77,7 @@ function util.get_item_prototype(item_name)
 end
 
 
-function util.get_item_icon(item_name)
+--[[function util.get_item_icon(item_name)
   if data.raw.fluid[item_name] then
     return { { icon = data.raw.fluid[item_name].icon, icon_size = data.raw.fluid[item_name].icon_size or 64 } }
   end
@@ -87,13 +87,76 @@ function util.get_item_icon(item_name)
       local proto = data.raw[k][item_name]
       if proto.icons then
         return table.deepcopy(proto.icons)
-      elseif proto.icon then
-        return { {icon = proto.icon, icon_size = proto.icon_size or 64 } }
+    else
+      proto.icons = {}
+      proto.icons[1] = {icon = ""}
+      if proto.icon_size ~= true then
+        proto.icons[1].icon_size = 64
+      else
+        proto.icons[1].icon_size = proto.icon_size
       end
+      if proto.icon ~= true then
+        proto.icons[1].icon = "__core__/graphics/cancel.png"
+      else
+        proto.icons[1].icon = proto.icon
+      end
+      return proto.icons
+    end
     end
   end
-  return { { icon = "__core__/graphics/cancel.png", size = 64 } }
+end--]]
+function util.get_item_icon(item_name)
+  --prototypesToRunThrough = {"data.raw[item_name]", "fluid"}
+  if data.raw.fluid[item_name] then
+      local proto = table.deepcopy(data.raw.fluid[item_name])
+      if proto.icons then
+        if not proto.icons[1].icon_size then
+          proto.icons[1].icon_size = proto.icon_size
+        end
+        goto endoffunction
+      else
+        proto.icons = {{icon = "__core__/graphics/cancel.png", icon_size = 64}}
+      if proto.icon then 
+        proto.icons[1].icon = proto.icon
+      else
+        proto.icons[1].icon = "__core__/graphics/cancel.png"
+      end
+      if proto.icon_size then
+        proto.icons[1].icon_size = proto.icon_size
+      else
+        proto.icons[1].icon_size = 64
+      end
+    end
+    ::endoffunction::
+    return table.deepcopy(proto.icons)
+  end
+  for k, v in pairs(defines.prototypes.item) do
+    if data.raw[k][item_name] then
+      local proto = table.deepcopy(data.raw[k][item_name])
+      if proto.icons then
+        if not proto.icons[1].icon_size then
+          proto.icons[1].icon_size = proto.icon_size
+        end
+        goto endoffunction
+      else
+        proto.icons = {{icon = "__core__/graphics/cancel.png", icon_size = 64}}
+      if proto.icon then 
+        proto.icons[1].icon = proto.icon
+      else
+        proto.icons[1].icon = "__core__/graphics/cancel.png"
+      end
+      if proto.icon_size then
+        proto.icons[1].icon_size = proto.icon_size
+      else
+        proto.icons[1].icon_size = 64
+      end
+    end
+    ::endoffunction::
+    return table.deepcopy(proto.icons)
+  end
 end
+end
+
 
 
 function util.get_item_sort_order(item_name)
@@ -132,7 +195,7 @@ end
 function util.get_normalized_recipe_ingredients(recipe_name, expensive_mode)
   local recipe = data.raw.recipe[recipe_name]
   if not recipe then
-    print("could not find recipe with name: "..recipe_name)
+    log("could not find recipe with name: "..recipe_name)
     return {}
   end
 
@@ -158,8 +221,7 @@ end
 function util.get_normalized_recipe_results(recipe_name)
   local recipe = data.raw.recipe[recipe_name]
 
-  assert(recipe, "could not find recipe with name: "..recipe_name)
-
+  if not recipe then log("could not get recipe with name: " .. recipe_name) goto skip end
   if recipe.normal then
     recipe = recipe.normal
   end
@@ -178,6 +240,7 @@ function util.get_normalized_recipe_results(recipe_name)
     end
     return r
   end
+  ::skip::
   return {}
 end
 

@@ -62,4 +62,12 @@ data:extend({
   setting_type = "startup",
   default_value = 2,
   },
+{
+  type = "double-setting",
+  name = "fish-value-multiplier",
+  minimum_value = 0,
+  maximum_value = 10,
+  setting_type = "startup",
+  default_value = 1/4,
+  },
 })

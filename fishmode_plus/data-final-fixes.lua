@@ -2,13 +2,13 @@
 --if you want to view what the fuck is going wrong with a value write log(inspect(value))
 inspect = require ("inspect")
 
---
+
 util = require("util")
 
---
+
 mapgen = require("mapgen")
 
---
+
 item_ranking = require("item-ranking")
 
 --Fish transmutation device prototype. 
@@ -17,6 +17,8 @@ require("prototypes.liquidator")
 --TODO: clean up this garbage mess
 
 local energy_required_for_unassemble_recipes = 3
+
+local i = 0
 
 -- seed rng
 -- util.seed_rng(settings.startup["fishblock-seed"].value)
@@ -83,36 +85,38 @@ local function construct_unassemble_recipe(item_name, produced_item_name)
   -- local item_data = item_ranking.item_data[item_name]
   -- icon for our new recipe
   local icons = util.get_item_icon(item_name)
-  -- local canonical_recipe = item_ranking.item_data[item_name].canonical_recipe
   if not icons then
-    icons = { "__base__/graphics/icons/signal/signal_X.png" }
+    icons = {{icon ="__base__/graphics/icons/signal/signal_X.png", icon_size = 64}}
   end
+  --changes scale to 0.8 the original
+  if icons[1].scale then icons[1].scale =  icons[1].scale * 0.8 else icons[1].scale = 0.35 end
+  icons[3] = icons[1]
+  -- local canonical_recipe = item_ranking.item_data[item_name].canonical_recipe
 
-  for _, icon in ipairs(icons) do
-      if not icon.icon_size then
-        icon.icon_size = 64
-      end
-  end
+
   -- icons[1].scale = {-0.5, 0.5}
   -- icons[1].shift = {2, 2}
   -- icons[1].tint = {r = 1.0, g = 0.8, b = 0.8, a = 1}
-  icons[1].scale = 0.42
+  --icons[1].scale = 0.
+
   table.insert(icons, 1, {
     icon = "__base__/graphics/icons/deconstruction-planner.png",
     icon_size = 64,
-    -- scale = 0.5,
+    scale = 0.42,
     -- shift = {-10, -10},
     tint = {r=0.45, g=0.45, b=0.45, a=1}
   })
   
-  local extra_icon = util.get_item_icon(produced_item_name)[1]
+  local extra_icon = util.get_item_icon(produced_item_name)
   if extra_icon then
     -- extra_icon.icon_size = 64
-    extra_icon.scale = 0.30
-    extra_icon.shift = {10, -16}
-    -- extra_icon.tint = {r=0.9, g=0.9, b=0.9, a=1}
-    table.insert(icons, 2, extra_icon)
+    extra_icon[1].scale = 0.30
+    extra_icon[1].shift = {10, -10}
+    if extra_icon[1].tint then extra_icon[1].tint.alpha = 0.5 else extra_icon[1].tint = {r=1, g=1, b=1, a=0.5} end
+    table.insert(icons, 2 , extra_icon[1])
   end
+
+  log("Recipe name: ".. item_name .. "\nicons: " .. inspect(icons))
 
   item_localised_name = {"?",
     {"item-name."..item_name},
@@ -121,20 +125,31 @@ local function construct_unassemble_recipe(item_name, produced_item_name)
     {"equipment-name."..item_name},
   }
 
-  local function order_string(order_for_item_with_name)
-    local item_proto = util.get_item_prototype(order_for_item_with_name)
-    if item_proto then
-      return (item_proto.group or "z") .. "-" .. (item_proto.subgroup or "z") .. "-" .. (item_proto.order or "z")
-    else
-      return "z-z-z"
-    end
+  local sortString = ""
+  local sortValueProducedItemCost = 0
+  local sortValueItemCost = 0
+
+  if item_ranking.item_data[produced_item_name].value then sortValueProducedItemCost = math.floor(item_ranking.item_data[produced_item_name].value*100) end
+  for p = 5, 0, -1 do
+    sortString = sortString .. string.char(97+math.fmod(math.floor(sortValueProducedItemCost/26^p), 26))
   end
+  sortString = sortString .. produced_item_name
+  log("Produced Item Value is: " .. sortValueProducedItemCost)
+  if item_ranking.item_data[item_name].value then sortValueItemCost = math.floor(item_ranking.item_data[item_name].value*100) end
+  log("Deconstructed Item Value is: " .. sortValueItemCost)
+  for p = 5, 0, -1 do
+    sortString = sortString .. string.char(97+math.fmod(math.floor((sortValueItemCost/26^p)), 26))
+  end
+  log("Order field is: " .. sortString)
+  log("Produced Item name is: ".. produced_item_name .. "\nDeconstructed item name is: ".. item_name)
+
+
 
   local new_recipe = {
     category = "crafting",
     name = "unassemble-"..item_name,
     localised_name = {"fishy-unassemble", item_localised_name},
-    order = order_string(produced_item_name) .. "-" .. order_string(item_name),
+    order = sortString,
     ingredients = {
       {
         item_name,
@@ -155,16 +170,10 @@ local function construct_unassemble_recipe(item_name, produced_item_name)
   return new_recipe
 end
 
-local function construct_liquidate_recipe(item_name)
+local function construct_liquidate_recipe(item_name, i)
   local icons = util.get_item_icon(item_name)
   if not icons then
-    icons = { "__base__/graphics/icons/signal/signal_X.png" }
-  end
-
-  for _, icon in ipairs(icons) do
-    if not icon.icon_size then
-      icon.icon_size = 64
-    end
+    icons[1] = {icon ="__base__/graphics/icons/signal/signal_X.png", icon_size = 64}
   end
 
   item_localised_name = {"?",
@@ -174,11 +183,16 @@ local function construct_liquidate_recipe(item_name)
     {"equipment-name."..item_name},
   }
 
+
+
   local new_recipe = {
     category = "fishy-liquidate",
     name = "liquidate-"..item_name,
     localised_name = {"Liquidate ", item_localised_name},
-    order = item_name,
+    order = sortString,
+
+
+
     ingredients = {
       {
         item_name,
@@ -190,7 +204,6 @@ local function construct_liquidate_recipe(item_name)
     icons = icons,
     allow_decomposition = false,
     subgroup = "fishy-liquidate",
-    -- order = "z-", -- TODO sort by something
     type = "recipe",
     energy_required = 500,
     allow_as_intermediate = false,
@@ -203,14 +216,18 @@ end
 
 
 local value_of_fish = 1
-local function get_ingredients_total_value(ingredients)
+local function get_ingredients_total_value(ingredients, recipe_name)
   local total = 0
+
   for _, ingr in ipairs(ingredients) do
-    local item_data = item_ranking.item_data[ingr.name]
+    local item_data = item_ranking.recipe_data[ingr.name]
     if item_data then
-      total = total + (item_ranking.item_data[ingr.name].value * ingr.amount)
+      total = total + (item_ranking.recipe_data[ingr.name].value * ingr.amount)
     end
   end
+  log(recipe_name)
+  log(inspect(item_ranking.recipe_data[recipe_name]))
+  total = total * (item_ranking.recipe_data[recipe_name].made_in_batch_of_size)
   return total / value_of_fish
 end
 
@@ -222,24 +239,27 @@ local ignore_recipe = {
   -- ["uranium-fuel-cell"]=true,
 }
 
-local function fishify_recipe(recipe_name, for_expensive_mode)
+local function fishify_recipe(recipe_name, for_expensive_mode, iterator)
   local ingredients = util.get_normalized_recipe_ingredients(recipe_name, for_expensive_mode)
   local recipe = data.raw.recipe[recipe_name]
 
   local new_ingredients = table.deepcopy(ingredients)
   local removed_ingredients = {}
+  local returnthis = nil
+  local total_fish = 0
+  local flippable_indexes = {}
 
   -- ignore smelting recipes and blacklistes recipes
   if recipe.category == "smelting" or ignore_recipe[recipe_name] then
     -- log("SKIPPING RECIPE: "..recipe_name)
-    return nil
+    goto skip_recipe
   end
 
   -- ignore science packs
   for _, result in ipairs(util.get_normalized_recipe_results(recipe_name, for_expensive_mode)) do
     if item_ranking.item_data[result.name] and item_ranking.item_data[result.name].is_science then
       -- log("SKIPPING RECIPE (science pack): "..recipe_name)
-      return nil
+      goto skip_recipe
     end
   end
 
@@ -250,11 +270,12 @@ local function fishify_recipe(recipe_name, for_expensive_mode)
     recipe = recipe.normal
   end
 
-  local total_fish = 0
+ 
+
   -- first remove any fish from the recipe
   for i=#new_ingredients,1,-1 do
     if new_ingredients[i].name == "raw-fish" then
-      total_fish = total_fish + new_ingredients[i].amount
+      --total_fish = total_fish + new_ingredients[i].amount
       -- table.insert(removed_ingredients, new_ingredients[i])
       -- table.remove(flippable_indexes, i)
       table.remove(new_ingredients, i)
@@ -262,22 +283,22 @@ local function fishify_recipe(recipe_name, for_expensive_mode)
   end
 
   -- exclude fluids and weird ingredients
-  local flippable_indexes = {}
+
   for index, ingr in ipairs(new_ingredients) do
     if not (ingr.catalyst_amount or ingr.probability) then -- ingr.type == "fluid" or 
       table.insert(flippable_indexes, index)
     end
   end
-
+--log("flippable indexes: " .. #flippable_indexes)
   if #flippable_indexes <= 1 then
     -- log("SKIPPING RECIPE (not enough flippable ingredients): ".. recipe_name)
-    return nil
+    goto skip_recipe
   end
 
+  do
   -- print(recipe_name, #flippable_indexes)
 
   -- local should_flip_by_index = {}
-  local i = 1
 
   -- flip the chosen results, record removed ingredients
 
@@ -287,7 +308,10 @@ local function fishify_recipe(recipe_name, for_expensive_mode)
   -- log("FLIPPABLE INGREDIENTS FOR "..recipe_name..": "..dump(flippable_indexes))
   -- log("FLIPPING INDEX "..index_to_flip.." FOR "..recipe_name)
   -- add the chosen ingredient to the total fish count
-  total_fish = total_fish + math.max(1, get_ingredients_total_value({new_ingredients[index_to_flip]}))
+  
+
+--log("Iteration is: ".. iterator .. "  Item is:" .. inspect({new_ingredients[index_to_flip]}))
+    total_fish = math.max(1, get_ingredients_total_value({new_ingredients[index_to_flip]}, recipe_name))
 
   -- remove the chosen ingredient from the modified recipe
   table.insert(removed_ingredients, new_ingredients[index_to_flip])
@@ -308,20 +332,25 @@ local function fishify_recipe(recipe_name, for_expensive_mode)
   --     data.canonical_recipe = recipe_name
   --   end
   -- end
+  returnthis = {new_ingredients, removed_ingredients}
+end
 
-  return {new_ingredients, removed_ingredients}
+  ::skip_recipe::
+  return returnthis
 end
 
 
 -- replace ingredients with fish
 local removed_ingredients_by_recipe = {}
 local new_ingredients_by_recipe = {}
+local iterator = 0
 for _, recipe_name in ipairs(item_ranking.accessible_recipes) do
-  local r = fishify_recipe(recipe_name, false) -- normal mode
+  local r = fishify_recipe(recipe_name, false, iterator) -- normal mode
   if r ~= nil then
     new_ingredients_by_recipe[recipe_name] = r[1]
     removed_ingredients_by_recipe[recipe_name] = r[2]
   end
+  iterator = iterator + 1
   -- elseif new_ingredients_by_recipe[recipe_name] == nil then
   --   new_ingredients_by_recipe[recipe_name] = util.get_normalized_recipe_ingredients(recipe_name, false)
   --   removed_ingredients_by_recipe[recipe_name] = {}
@@ -345,6 +374,7 @@ local ignore_items = {
 
 -- create unassemble recipes
 local unassemble_recipes = {}
+
 for item_name, item_data in pairs(item_ranking.item_data) do
   if item_data.is_fluid or item_data.is_science or ignore_items[item_name] then
     goto continue
@@ -420,18 +450,23 @@ end
 -- create liquidate recipes
 for item_name, item_data in pairs(item_ranking.item_data) do
   -- local canonical_recipe = item_data.canonical_recipe
+
   
   --(0.5 * item_data.value)
-
-log("Item name is" .. inspect(item_name) .. "\nItem value is:" .. inspect(item_data.value))
+--log("Item name is" .. inspect(item_name) .. "\nItem value is:" .. inspect(item_data.value))
 
 local item_value = item_data.value
 
-local value_mult = 1.0 - (1/2) ^ item_data.complexity
+if item_name == "space-science-pack" then
+  item_value= 0 
+end
 
-local base = item_data.cumulative_complexity / item_data.made_in_batch_of_size
-local num_fish = base + item_value * value_mult
+local value_mult = 2
+if item_data.complexity ~= nil then
+  value_mult = 2 - ((3/4) ^ item_data.complexity)
+end
 
+local num_fish = (item_value) * value_mult
   num_fish = math.min(65535, num_fish)
 
   local fish_chance = 1.0
@@ -439,7 +474,7 @@ local num_fish = base + item_value * value_mult
   if item_data.is_fluid or ignore_items[item_name] then
     goto continue
   end
-  if item_value == 0 or item_value == math.huge or item_name == "raw-fish" then
+  if item_value == 0 or item_value == nil or item_name == "raw-fish" then
     goto continue
   end
 
@@ -449,7 +484,8 @@ local num_fish = base + item_value * value_mult
   end
 
   -- add the fish to the recipe results
-  local new_recipe = construct_liquidate_recipe(item_name)
+  local new_recipe = construct_liquidate_recipe(item_name, i)
+  i = i+1
   -- whitelist for productivity modules
   for _, module in pairs(data.raw.module) do
     if module.category == "productivity" and module.limitation then
@@ -466,7 +502,7 @@ end
 
 -- add fish as an ingredient to each science pack
 for item_name, item_data in pairs(item_ranking.item_data) do
-  if item_data.is_science and item_data.value ~= math.huge then
+  if item_data.is_science and item_data.value ~= nil then
     local recipe = data.raw.recipe[item_name]
     if recipe and recipe.ingredients then
       -- local base_cost = item_data.cumulative_complexity * settings.startup["science-pack-fish"].value
@@ -474,6 +510,8 @@ for item_name, item_data in pairs(item_ranking.item_data) do
       local x = 1 --+ (item_data.tech_level)
       --x = x * (recipe.result_count or 1)
       local cost = math.ceil(x * base_cost)
+
+      --log("Item name is: " .. inspect(item_name) .. "\nItem cost is: " .. inspect(cost))
       
       -- add the fish
       fish_ingredients = denominate_fish(cost)

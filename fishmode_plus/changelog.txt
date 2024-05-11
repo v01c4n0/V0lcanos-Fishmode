@@ -1,4 +1,35 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.2.10
+Date: 9. 05. 2024
+  Changes:
+    -  Deconstruction recipe icons are now sorted first by the fish value of the item produced, the name of the item produced, the value of the item being deconstructed
+  Bugfixes:
+    -  Fixed the icons looking broken after the last update
+---------------------------------------------------------------------------------------------------
+Version: 0.2.9
+Date: 9. 05. 2024
+  Bugfixes:
+    - Fixed icon problem that would lead to fishmode crashing when used with mods that defined icons using the icons array. This means that you can load fishmode in with krastorio! Yay (compatibility not there yet)
+---------------------------------------------------------------------------------------------------
+Version: 0.2.8
+Date: 7. 05. 2024
+  Changes:
+    - changed around some values in the recipe valuation numbers
+  Bugfixes:
+    - allows fish mode to work with renai transportation
+    - changes to code also make complexity work as intended, and should work with other mods that add recipes
+    - these changes affect all recipes and the numbers should feel more intuitive
+---------------------------------------------------------------------------------------------------
+Version: 0.2.7
+Date: 7. 05. 2024
+  Bugfix:
+    - fixed bug that didn't allow mod to start
+---------------------------------------------------------------------------------------------------
+Version: 0.2.6
+Date: 6. 05. 2024
+  Changes:
+    - added setting called fish value multiplier. This value determines the number of fish used in a recipe. Recommended to scale down if you are hitting 65535 fish on recipes
+---------------------------------------------------------------------------------------------------
 Version: 0.2.5
 Date: 3. 05. 2024
   Balance Changes:

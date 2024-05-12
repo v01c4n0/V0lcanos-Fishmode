@@ -95,7 +95,7 @@ data:extend({{
   },
   tint = {r = 0.4, g = 0.4, b = 1.0},
   --TODO: create better liquidator asset using paint.NET or other editing software
-  icon = "__fishmode_plus__/liquidator-icon.png",
+  icon = "__fishmode_plus__/assets/liquidator-icon.png",
   scale = 0.4,
   icon_mipmaps = 4,
   icon_size = 64,
@@ -105,7 +105,7 @@ data:extend({{
   close_sound = data.raw.accumulator.accumulator.close_sound,
   order = "d-a-a",
   animation = {
-    filename = "__fishmode_plus__/liquidator.png",
+    filename = "__fishmode_plus__/assets/liquidator.png",
     height = 396, --127
     shift = {
       0.2,
@@ -191,7 +191,7 @@ data:extend({{
 data:extend({{
   type = "item",
   name = "liquidator",
-  icon = "__fishmode_plus__/liquidator-icon.png",
+  icon = "__fishmode_plus__/assets/liquidator-icon.png",
   icon_size = 64,
   icon_mipmaps = 4,
   subgroup = "other",

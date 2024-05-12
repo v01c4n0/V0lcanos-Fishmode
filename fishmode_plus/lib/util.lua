@@ -76,35 +76,6 @@ function util.get_item_prototype(item_name)
   return nil
 end
 
-
---[[function util.get_item_icon(item_name)
-  if data.raw.fluid[item_name] then
-    return { { icon = data.raw.fluid[item_name].icon, icon_size = data.raw.fluid[item_name].icon_size or 64 } }
-  end
-
-  for k, v in pairs(defines.prototypes.item) do
-    if data.raw[k][item_name] then
-      local proto = data.raw[k][item_name]
-      if proto.icons then
-        return table.deepcopy(proto.icons)
-    else
-      proto.icons = {}
-      proto.icons[1] = {icon = ""}
-      if proto.icon_size ~= true then
-        proto.icons[1].icon_size = 64
-      else
-        proto.icons[1].icon_size = proto.icon_size
-      end
-      if proto.icon ~= true then
-        proto.icons[1].icon = "__core__/graphics/cancel.png"
-      else
-        proto.icons[1].icon = proto.icon
-      end
-      return proto.icons
-    end
-    end
-  end
-end--]]
 function util.get_item_icon(item_name)
   --prototypesToRunThrough = {"data.raw[item_name]", "fluid"}
   if data.raw.fluid[item_name] then
@@ -255,4 +226,19 @@ function util.recipe_is_hidden(recipe_name)
   return recipe.hidden ~= nil and recipe.hidden == true
 end
 
+function util.make_unassemble_result(item_name, amount, probability)
+  local result_type = "item"
+  if item_ranking.item_data[item_name].is_fluid then
+    result_type = "fluid"
+  end
+  local result = {
+    name = item_name,
+    amount = amount,
+    probability = probability,
+    type = result_type,
+  }
+  return result
+end
+
 return util
+

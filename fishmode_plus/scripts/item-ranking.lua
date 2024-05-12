@@ -1,10 +1,5 @@
 -- TODO: separate values for inputting an item into a fish transmutation device and creating the item. 
-
-local util = require("util")
 local M = {}
-
-local inspect = require("inspect")
-
 
 -- declares variables for the item modifications and new fish magic recipes
 local function new_item_data()
@@ -115,8 +110,35 @@ for recipe_name, x in pairs(data.raw.recipe) do
   end
 end
 end
-
---
+local required_science_packs = {}
+    -- count required science packs
+    local function count_science_packs(technology)
+      if technology.unit and technology.unit.ingredients then
+        for _, ingredient in ipairs(technology.unit.ingredients) do
+          local science_pack_name = ingredient[1] or ingredient.name
+          table.insert(required_science_packs, science_pack_name)
+          M.item_data[science_pack_name] = new_item_data()
+          M.item_data[science_pack_name].is_science = true
+          log("sciencing about")
+          log(science_pack_name)
+        end
+      end
+    end
+        -- find all unlock recipe effects and add them to the list of accessible recipes
+  local function add_science_to_accessible_recipes(technology)
+      for _, effect in ipairs(technology.effects) do
+        if effect.type == "unlock-recipe" then
+          local recipe_name = effect.recipe
+          if data.raw.recipe[recipe_name] then
+            table.insert(M.accessible_recipes, recipe_name)
+          end
+    
+          -- record science packs required for the recipe
+          M.science_packs_by_recipe[recipe_name] = table.deepcopy(required_science_packs)
+        end
+      end
+    end
+  --
 M.science_packs_by_recipe = {}
 local science_pack_items = {}
 -- parse the tech tree for unlockable recipes
@@ -124,34 +146,11 @@ for _, technology in pairs(data.raw.technology) do
   if not technology.effects then
     goto continue
   end
-
-  -- count required science packs
-  local required_science_packs = {}
-  if technology.unit and technology.unit.ingredients then
-    for _, ingredient in ipairs(technology.unit.ingredients) do
-      local science_pack_name = ingredient[1] or ingredient.name
-      table.insert(required_science_packs, science_pack_name)
-      M.item_data[science_pack_name] = new_item_data()
-      M.item_data[science_pack_name].is_science = true
-      log("sciencing about")
-      log(science_pack_name)
-    end
-  end
-
-  -- find all unlock recipe effects and add them to the list of accessible recipes
-  for _, effect in ipairs(technology.effects) do
-    if effect.type == "unlock-recipe" then
-      local recipe_name = effect.recipe
-      if data.raw.recipe[recipe_name] then
-        table.insert(M.accessible_recipes, recipe_name)
-      end
-
-      -- record science packs required for the recipe
-      M.science_packs_by_recipe[recipe_name] = table.deepcopy(required_science_packs)
-    end
-  end
+  count_science_packs(technology)
+  add_science_to_accessible_recipes(technology)
   ::continue::
 end
+
 
 function M.get_recipe_tech_level(recipe_name)
   if not M.science_packs_by_recipe[recipe_name] then

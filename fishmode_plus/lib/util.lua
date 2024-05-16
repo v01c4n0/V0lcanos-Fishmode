@@ -1,4 +1,5 @@
 local util = {}
+table = require("__flib__/table")
 
 -- this rng implementation is borrowed from https://stackoverflow.com/a/20177466
 local A1, A2 = 727595, 798405
@@ -12,7 +13,11 @@ function util.seed_rng(seed1, string_seed)
   local seed2 = 1
   for i = 1, #string_seed do
     local char = string.byte(string_seed, i)
-    seed2 = seed2 + (char * (i - 1)) * 200 -- must be even
+    if settings.startup("keep-old-rng") == true then
+      seed2 = seed2 + (char * (i - 1)) * 200
+    else
+      seed2 = seed2 + char
+    end
   end
 
   X2 = seed2 % D20
@@ -29,7 +34,7 @@ end
 
 -- generate a random number between inclusive 1 and inclusive upper
 function util.randint(upper)
-    return math.floor(util.rand() * upper) + 1
+    return (math.floor(util.rand() * upper)+1)
 end
 
 
@@ -204,7 +209,7 @@ function util.get_normalized_recipe_results(recipe_name)
     r = {}
     for _, result in ipairs(recipe.results) do
       -- if result.type ~= "fluid" and not result.catalyst_amount then
-        local name = result.name or result[1]
+        local name = (result.name or result[1])
         local amount = (result.amount or result[2]) or 1
         table.insert(r, {["name"] = name, ["amount"] = amount, type = result.type, catalyst_amount = (result.catalyst_amount or 0)})
       -- end

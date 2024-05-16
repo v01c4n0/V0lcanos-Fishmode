@@ -103,7 +103,7 @@ M.accessible_recipes = {}
 for recipe_name, x in pairs(data.raw.recipe) do
   for _, x in pairs{x, x.normal, x.expensive} do
     if x.ingredients then
-      table.insert(M.accessible_recipes, recipe_name)
+            table.insert(M.accessible_recipes, recipe_name)
     --if util.recipe_is_enabled(recipe_name) then
     --  table.insert(M.accessible_recipes, recipe_name)
     --end
@@ -116,7 +116,7 @@ local required_science_packs = {}
       if technology.unit and technology.unit.ingredients then
         for _, ingredient in ipairs(technology.unit.ingredients) do
           local science_pack_name = ingredient[1] or ingredient.name
-          table.insert(required_science_packs, science_pack_name)
+            table.insert(required_science_packs, science_pack_name)
           M.item_data[science_pack_name] = new_item_data()
           M.item_data[science_pack_name].is_science = true
           log("sciencing about")
@@ -131,7 +131,7 @@ local required_science_packs = {}
           local recipe_name = effect.recipe
           if data.raw.recipe[recipe_name] then
             table.insert(M.accessible_recipes, recipe_name)
-          end
+            end
     
           -- record science packs required for the recipe
           M.science_packs_by_recipe[recipe_name] = table.deepcopy(required_science_packs)
@@ -195,7 +195,7 @@ local function do_recipe_valuation_pass()
       local item_name = ingredient.name
       local item_count = ingredient.amount
       -- we can only calculate the cost of this recipe if the value of all ingredients is known
-      if ((not M.item_data[item_name]) or M.item_data[item_name].value==nil or M.item_data[item_name].complexity==nil --[[or M.item_data[item_name].cumulative_complexity==nil]]) then
+      if ((not M.item_data[item_name]) or M.item_data[item_name].value==nil or M.item_data[item_name].complexity==nil or M.item_data[recipe_name] --[[or M.item_data[item_name].cumulative_complexity==nil]]) then
         --log("skipping due to unknown values:" .. inspect(item_name) .. ", in recipe: " .. recipe_name) 
         goto skip_this_recipe
       end
@@ -280,7 +280,10 @@ local function do_recipe_valuation_pass()
       end
       --log(inspect(recipe_data))
       recipe_data.made_in_batch_of_size = recipe_data.made_in_batch_of_size + result.amount
-      log("Recipe name: " .. recipe_name .. "\nRecipe info: " .. inspect(M.item_data[result.name]))
+      --log("Recipe name: " .. recipe_name .. "\nRecipe info: " .. inspect(M.item_data[result.name]))
+      --log("accessible recipes: " .. inspect(M.accessible_recipes))
+     -- log("data.raw recipes" .. inspect(data.raw.recipe))
+      --log("data.raw items" .. inspect(data.raw.item))
     end
     M.recipe_data[recipe_name] = recipe_data
     -- count this recipe 
@@ -373,7 +376,9 @@ for _, recipe_name in ipairs(M.accessible_recipes) do --TODO should I use this d
           --log("We did it Johnson!")
         break
         end
+        if not M.item_data[ingredient.name].builds_into[result] then
         table.insert(M.item_data[ingredient.name].builds_into, result)
+        end
       end
     end
   end

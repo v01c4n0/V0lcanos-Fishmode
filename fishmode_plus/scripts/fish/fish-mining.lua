@@ -15,7 +15,7 @@ data.raw["fish"]["fish"].minable.results = {
   add_fish_minable_result("production-science-pack", 1, 0.01)
   add_fish_minable_result("utility-science-pack", 1, 0.01)
   
-  data:extend(unassemble_recipes)
+  data:extend{unassemble_recipes}
   
   -- create the groups and subgroups for our recipes
   data:extend({

@@ -1,5 +1,5 @@
 --Define all resources that can be created by fish from scratch
-
+table = require("__flib__/table")
 -- Should I add a mod setting for these values or not? I think they're an important part of game balance so I don't think they should be available 
 local fishAmount = 2
 local rawCraftTime = 6

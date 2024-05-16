@@ -16,6 +16,7 @@ Date: 11. 05. 2024
     -  tldr; items with longer crafting chains or more items required will produce a higher multiplier of fish out vs fish in
     -  time taken per recipe is now based on the fish value, and not the output multiplier. So higher complexity items when used as input will create a higher item/s output. At a complexity of 1, the output is 10/s, at 8 20/s, so on like above 
     -  removed requirement from transmutation devices to have fish as fuel
+    -  fish stack size is now 200
   Bugfixes:
     -  science pack recipes are back to having their fish value multiplied by the batch size
 ---------------------------------------------------------------------------------------------------

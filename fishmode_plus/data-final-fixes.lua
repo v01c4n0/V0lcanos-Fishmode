@@ -1,6 +1,8 @@
 --library for creating human readable outputs from any value, including nested tables
 --if you want to view what the fuck is going wrong with a value write log(inspect(value))
 inspect = require("lib/inspect")
+--flib utilities
+--flib = require("__flib__")
 -- utilities
 util = require("lib/util")
 --Reduces ores in mapgeneration

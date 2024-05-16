@@ -34,5 +34,11 @@ data:extend({
   name = "visible-liquidate-multiplier",
   setting_type = "startup",
   default_value = true
+},
+{
+  type = "bool-setting",
+  name = "keep-old-rng",
+  setting_type = "startup",
+  default_value = false
 }
 })

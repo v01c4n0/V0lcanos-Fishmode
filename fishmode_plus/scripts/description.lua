@@ -21,17 +21,17 @@ if settings.startup["visible-liquidate-multiplier"].value then
                                 item.localised_description = {
                                     "",
                                     item.localised_description, "\n",
-                                    {"rescription-liquidate-multiplier", digit1}
+                                    {"description.liquidate-multiplier", digit1}
                                 }
                             else
-                                item.localised_description = {"rescription-liquidate-multiplier", digit1}
+                                item.localised_description = {"description.liquidate-multiplier", digit1}
                             end
-                            log(item_name)
-                            log("why")
-                            log(digit1)
+                            --log(item_name)
+                            --log("why")
+                            --log(digit1)
                             --print(digit2)
                             --(digit3)
-                            log(inspect(item.localised_description))
+                            --log(inspect(item.localised_description))
 
                         end
                     end
@@ -40,3 +40,5 @@ if settings.startup["visible-liquidate-multiplier"].value then
         end
     end
 end
+
+    
